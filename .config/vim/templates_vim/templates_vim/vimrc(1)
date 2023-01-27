@@ -1,0 +1,76 @@
+set encoding=utf-8
+set nocompatible
+set number
+set relativenumber
+set cursorline
+set incsearch
+set expandtab
+set tabstop=4
+set smarttab
+set smartindent
+set nofoldenable
+set nowrap
+set tabstop=4
+set mouse=a
+set confirm
+set cursorline
+set cursorcolumn
+set shiftwidth=4
+set wildmenu
+set wildmode=longest,list,full
+colorscheme wombat256mod
+set termguicolors
+set wildchar=<TAB>
+set clipboard=unnamedplus
+syntax on
+filetype on
+filetype plugin on
+filetype indent on
+
+
+" Vim-Plug Installation
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Seccion para auto instalar plugins
+"==============================================================================
+
+call plug#begin()
+
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+Plug 'tpope/vim-sensible'
+" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" NERD tree will be loaded on the first invocation of NERDTreeToggle command
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+" Color Schemes for vim
+Plug 'flazz/vim-colorschemes'
+" Airline themes for vim
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+" Auto format
+Plug 'godlygeek/tabular'
+Plug 'wincent/terminus'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-markdown'
+Plug 'dhruvasagar/vim-pairify'
+"MarkDown syntax highlighter
+Plug 'plasticboy/vim-markdown' 
+
+call plug#end()
+"==============================================================================
+
+" NerdTree Script
+" --- NERDTree ----
+let NERDTreeIgnore=['.DS_Store']
+let NERDTreeShowBookmarks=0         "show bookmarks on startup
+let NERDTreeHighlightCursorline=1   "Highlight the selected entry in the tree
+let NERDTreeShowLineNumbers=0
+let NERDTreeMinimalUI=1
+let NERDTreeShowHidden=1 "Lets you see hidden files on dir
+map <leader>nt :NERDTreeToggle<CR>

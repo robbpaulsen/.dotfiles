@@ -1,0 +1,77 @@
+set nocompatible
+set number
+set relativenumber
+set cursorline
+set encoding=utf-8
+set incsearch
+set expandtab
+set tabstop=4
+set smarttab
+set tabstop=4
+set mouse=a
+set confirm
+set cursorline
+set cursorcolumn
+set shiftwidth=4
+set wildmenu
+set wildmode=list:longest
+set colorscheme wombat256mod
+set wildchar=<TAB>
+" Mejor autocompletado de linea de comando dentro de vim & busqueda de subdirs
+set path+=**
+set wildmenu
+syntax on
+filetype on
+filetype plugin on
+filetype indent on
+
+
+" Vim-Plug Installation
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.config/vim/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Seccion para auto instalar plugins
+"==============================================================================
+
+call plug#begin()
+
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py' }
+Plug 'tpope/vim-sensible'
+" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" NERD tree will be loaded on the first invocation of NERDTreeToggle command
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+" Color Schemes for vim
+Plug 'flazz/vim-colorschemes'
+# Airline themes for vim
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'wincent/terminus'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-markdown'
+Plug 'dhruvasagar/vim-pairify'
+
+call plug#end()
+"==============================================================================
+
+" NerdTree Script
+" --- NERDTree ----
+let NERDTreeIgnore=['.DS_Store']
+let NERDTreeShowBookmarks=0         "show bookmarks on startup
+let NERDTreeHighlightCursorline=1   "Highlight the selected entry in the tree
+let NERDTreeShowLineNumbers=0
+let NERDTreeMinimalUI=1
+noremap <leader>nt :NERDTreeToggle<CR>
+
+" (folder browser) netrw settings
+let g:netrw_banner=0 "no top banner
+let g:netrw_browse_split=4 "open in prior window
+let g:netrw_altv=1 "open splits to the right
+let g:netrw_liststyle=3 "tree view > list view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
